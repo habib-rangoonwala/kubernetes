@@ -1,1 +1,7 @@
-# kubernetes
+** Kubernetes **
+
+MongoDB
+```
+     Standalone
+     ReplicaSet
+```
