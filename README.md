@@ -2,6 +2,6 @@
 
 MongoDB
 ```
-     Standalone
-     ReplicaSet
+1] Standalone
+2] ReplicaSet
 ```
