@@ -1,7 +1,7 @@
 ########################################################
 ### Author: Habib Rangoonwala
 ### Created: 01-Aug-2016
-### Updated: 18-Aug-2016
+### Updated: 25-Aug-2016
 ########################################################
 ################
 ### Volume 1 ###
@@ -84,6 +84,31 @@ spec:
   resources:
     requests:
       storage: 10G
+#############################################################################
+### Service 0                                                             ###
+# This service is used for MongoDB access outside of the kubernetes cluster #
+#############################################################################
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: mongo-svc-gw
+  labels:
+    app: myapp
+    databaseVendor: mongo
+    instanceType: dev
+spec:
+  type: LoadBalancer
+  ports:
+  - name: mongo-port
+    port: 27017
+    targetPort: 27017
+    nodePort: 30017
+    protocol: TCP
+  selector:
+    app: myapp
+    databaseVendor: mongo
+    instanceType: dev
 #################
 ### Service 1 ###
 #################
@@ -102,7 +127,6 @@ spec:
   - name: mongo-port
     port: 27017
     targetPort: 27017
-    nodePort: 30017
     protocol: TCP
   selector:
     app: myapp
@@ -127,7 +151,6 @@ spec:
   - name: mongo-port
     port: 27017
     targetPort: 27017
-    nodePort: 31017
     protocol: TCP
   selector:
     app: myapp
@@ -152,7 +175,6 @@ spec:
   - name: mongo-port
     port: 27017
     targetPort: 27017
-    nodePort: 32017
     protocol: TCP
   selector:
     app: myapp
@@ -294,4 +316,5 @@ spec:
 ### rs.reconfig(conf)
 ### rs.add("mongo-svc-rs02:27017")
 ### rs.add("mongo-svc-rs03:27017")
+### rs.status()
 ##############################################################################
